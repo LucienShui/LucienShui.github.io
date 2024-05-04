@@ -1,0 +1,35 @@
+{
+    "header": [
+        {
+            "url": "/",
+            "path": "/page/main.html"
+        },
+        {
+            "url": "/intro",
+            "path": "/page/intro.html"
+        },
+        {
+            "url": "/music",
+            "path": "/page/music.html"
+        },
+        {
+            "url": "/blog",
+            "path": "/page/blog.html"
+        },
+        {
+            "url": "/project",
+            "path": "/page/project.html"
+        }
+    ],
+    "chat": {
+        "base_url": "https://i-am-lucien-chat.hub.lucien.ink:2016/v1",
+        "api_key": "i_am_lucien",
+        "model": "model",
+        "messages": [
+            {
+                "role": "system",
+                "content": "你需要角色扮演一只会说话的宠物猫，以下是你的角色信息：\n名字：闹闹\n性别：公猫\n品种：狸花猫\n花色：狸花色\n年龄：4 岁\n家庭成员：弟弟叫“小黑”\n备注：已绝育\n\n以下是小黑的信息：\n名字：小黑\n性别：公猫\n品种：狸花猫\n花色：白色\n年龄：3 岁\n备注：已绝育\n\n我将以人类的身份与你对话，请你以猫的角度来回答我的问题。"
+            }
+        ]
+    }
+}

@@ -1,0 +1,92 @@
+<style>
+    .chat-input {
+        background-color: black;
+        color: #DBDBDB;
+        caret-color: #DBDBDB;
+    }
+
+    .chat-input > span {
+        background-color: #DBDBDB;
+        color: #000;
+    }
+
+    #message-box {
+        height: 93.75px; /* 12.5px (font-size) x 1.5 (line-height) x 5 (line-number) */
+        overflow: scroll;
+        position: relative;
+    }
+
+    #message-box::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<div id="chat">
+    <div id="message-box">
+
+    </div>
+    <form id="chat-form">
+        <label for="chat-text">$</label>
+        <input id="chat-text" class="chat-input" spellcheck="false" onblur="this.focus()" onkeyup="submit()" autofocus>
+    </form>
+</div>
+<script>
+    let shouldScroll = false;
+
+    function calcMessageHeightSum(messageBox) {
+        let messageHeightSum = 0;
+
+        let messageList = Array.prototype.slice.call(messageBox.getElementsByTagName('p'));
+        messageList.forEach(function (message) { messageHeightSum += message.getBoundingClientRect().height; });
+
+        return messageHeightSum;
+    }
+
+    function appendMessage(text, sender) {
+        let messageBox = document.getElementById("message-box");
+
+        let messageDOM = document.createElement('p');
+        messageDOM.innerText = (sender === 1 ? '> ' : '') + text;
+
+        messageBox.appendChild(messageDOM);
+        
+        if (!shouldScroll && messageBox.getBoundingClientRect().height < calcMessageHeightSum(messageBox)) {
+            shouldScroll = true;
+        }
+
+        if (shouldScroll) {
+            messageBox.scrollTop = messageBox.scrollHeight;
+        }
+    }
+
+    function submit(event) {
+        let input = document.getElementById("chat-text");
+        let text = input.value;
+        appendMessage(text, 1);
+        input.value = '';
+
+        if ('chat' in config && 'api' in config['chat'] && config['chat']['api']) {
+            post(config['chat']['api'], {'text': text}).then(response => {
+                appendMessage(response.answer, 0);
+            })
+        }
+        
+        
+        event.preventDefault();
+    }
+
+    function focusInput() {
+        let hashKey = currentContentKey();
+        if (hashKey === '/chat') {
+            document.getElementById('chat-text').focus();
+        }
+    }
+
+    (function () {
+        let form = document.getElementById("chat-form");
+        form.addEventListener('submit', submit);
+
+        appendMessage('如果一个机器人知我所知，想我所想，那他是否可以成为我。', 0);
+
+        window.addEventListener('hashchange', focusInput);
+    })()
+</script>
