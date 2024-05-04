@@ -32,8 +32,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-install jq -y
+          sudo apt-get update
+          sudo apt-install jq -y
       - name: Build site
         run: bash .github/workflows/build.sh
 
