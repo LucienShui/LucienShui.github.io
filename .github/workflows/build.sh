@@ -14,8 +14,7 @@ for i in range(len(lines)):
 result = '<div id=\"intro\">\n    <h1>Intro</h1>\n' + '\n'.join(lines) + '\n</div>'
 print(result)"
 
-wget -O dist.tar.gz "${DOWNLOAD_URL}" && \
-tar -xzvf dist.tar.gz && \
+wget -O - "${DOWNLOAD_URL}" | tar -xzvf - && \
 mv i-am-lucien _site && \
 yes | rm _site/page/*example.* && \
 cp page/* _site/page/ && \

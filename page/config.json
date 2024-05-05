@@ -14,7 +14,7 @@
         },
         {
             "url": "/blog",
-            "path": "/page/blog.html"
+            "path": "redirect:https://lucienshui.github.io/blog/"
         },
         {
             "url": "/project",
